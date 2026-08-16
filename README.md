@@ -1,6 +1,3 @@
-Absolutely. For GitHub, a **shorter README is more professional and impactful**. Here's a copy-paste-ready version focused on the project's USP, features, architecture, setup, and accessibility.
-
-````markdown
 # V-Code
 
 ### An AI Voice-First Coding Assistant for Visually Impaired Learners
@@ -297,22 +294,3 @@ By combining AI, voice technology, and programming education, V-Code transforms 
 3. MDN Web Docs — Web Speech API
 4. Judge0 — Online Code Execution System and API
 5. Groq — API Documentation
-
----
-
-## License
-
-Developed for educational and research purposes.
-
-```
-
-### Recommended GitHub tagline
-
-Use this as the **GitHub repository description**:
-
-> **An AI-powered, voice-first coding and learning platform designed to make programming accessible for visually impaired learners.**
-
-And for the project's **one-line USP**:
-
-> **V-Code transforms programming from a visual-first experience into an accessible voice-and-audio coding experience.**
-```
