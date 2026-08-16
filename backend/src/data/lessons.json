@@ -1,0 +1,67 @@
+[
+  {
+    "id": "variables",
+    "title": "Lesson 1: Variables",
+    "introduction": "Today we are learning about variables.",
+    "explanation": "A variable stores a value so you can use it later, like a labeled box.",
+    "example": "age = 20",
+    "exercise": {
+      "prompt": "Create a variable called score and set it to 10.",
+      "voiceHint": "Say: create a variable called score with value 10.",
+      "validate": [{ "type": "regex", "value": "score\\s*=\\s*10" }],
+      "successMessage": "You created the score variable. Nicely done."
+    }
+  },
+  {
+    "id": "conditions",
+    "title": "Lesson 2: Conditions",
+    "introduction": "Today we are learning about conditions.",
+    "explanation": "An if statement runs a block of code only when something is true.",
+    "example": "if age > 18:\n    print(\"adult\")",
+    "exercise": {
+      "prompt": "Write an if statement that checks if score is greater than 5.",
+      "voiceHint": "Say: create an if statement, score greater than 5.",
+      "validate": [{ "type": "regex", "value": "if\\s+score\\s*>\\s*5" }],
+      "successMessage": "That's a correct condition."
+    }
+  },
+  {
+    "id": "loops",
+    "title": "Lesson 3: Loops",
+    "introduction": "Today we are learning loops.",
+    "explanation": "A loop lets us repeat an action without writing it multiple times.",
+    "example": "for i in range(5):\n    print(i)",
+    "exercise": {
+      "prompt": "Create a loop that prints numbers from 0 to 4.",
+      "voiceHint": "Say: create a loop from 0 to 4.",
+      "validate": [{ "type": "regex", "value": "for\\s+\\w+\\s+in\\s+range\\(" }],
+      "successMessage": "Great, that's a working loop."
+    }
+  },
+  {
+    "id": "functions",
+    "title": "Lesson 4: Functions",
+    "introduction": "Today we are learning functions.",
+    "explanation": "A function is a reusable block of code you can call by name.",
+    "example": "def add(a, b):\n    return a + b",
+    "exercise": {
+      "prompt": "Define a function called add that takes two numbers and returns their sum.",
+      "voiceHint": "Say: create a function called add that takes two numbers.",
+      "validate": [{ "type": "regex", "value": "def\\s+add\\s*\\(" }],
+      "successMessage": "You defined your first function."
+    }
+  },
+  {
+    "id": "arrays",
+    "title": "Lesson 5: Lists",
+    "introduction": "Today we are learning about lists.",
+    "explanation": "A list stores multiple values in order, like a shelf of boxes.",
+    "example": "numbers = [1, 2, 3]",
+    "exercise": {
+      "prompt": "Create a list called numbers containing 1, 2, and 3.",
+      "voiceHint": "Say: create a list called numbers with 1, 2, 3.",
+      "validate": [{ "type": "regex", "value": "numbers\\s*=\\s*\\[" }],
+      "successMessage": "That's a correctly created list."
+    }
+  }
+]

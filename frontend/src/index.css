@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base-font-size: 18px;
+  --color-bg: #0f1115;
+  --color-surface: #1a1d23;
+  --color-text: #f2f3f5;
+  --color-accent: #6ea8fe;
+  --color-error: #ff8080;
+  --color-border: #33363d;
+}
+
+html.high-contrast {
+  --color-bg: #000000;
+  --color-surface: #000000;
+  --color-text: #ffffff;
+  --color-accent: #ffff00;
+  --color-error: #ff5555;
+  --color-border: #ffffff;
+}
+
+html.reduced-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--base-font-size);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+}
+
+/* Standard visually-hidden-but-screen-reader-visible utility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip links: hidden until focused, then prominent */
+.skip-links a {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-accent);
+  color: #000;
+  padding: 0.75rem 1rem;
+  z-index: 1000;
+  font-weight: 600;
+}
+.skip-links a:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* Strong, always-visible focus indicator -- never remove outline */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button, input, select, a {
+  font-size: 1rem;
+}
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+button:hover { 
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent), 0 0 15px rgba(110, 168, 254, 0.5);
+  transform: translateY(-2px);
+  background: rgba(110, 168, 254, 0.05);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.app-header nav { display: flex; gap: 1rem; }
+.app-header a { color: var(--color-accent); }
+.voice-indicator { margin-left: auto; }
+
+.vscode-workspace {
+  display: grid;
+  grid-template-columns: 48px 250px 1fr 340px;
+  height: 100vh;
+  background: var(--color-bg);
+}
+@media (max-width: 1024px) {
+  .vscode-workspace { grid-template-columns: 48px 200px 1fr; }
+  .right-panel { display: none; }
+}
+
+.activity-bar {
+  background: #181818;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  gap: 1.5rem;
+}
+.activity-icon {
+  color: #858585;
+  cursor: pointer;
+  position: relative;
+}
+.activity-icon:hover { color: #fff; }
+.activity-icon.active { color: #fff; }
+.activity-icon.active::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: var(--color-accent);
+}
+.activity-icon.bottom { margin-top: auto; margin-bottom: 1rem; }
+
+.sidebar-panel {
+  background: #1e1e1e;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-panel {
+  background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-tabs {
+  display: flex;
+  background: #252526;
+  height: 35px;
+  overflow-x: auto;
+}
+.editor-tab {
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  color: #969696;
+  background: #2d2d2d;
+  border-right: 1px solid #1e1e1e;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.editor-tab.active {
+  background: #1e1e1e;
+  color: #fff;
+  border-top: 2px solid var(--color-accent);
+}
+.editor-container {
+  flex: 1;
+  position: relative;
+}
+
+.right-panel {
+  background: #1e1e1e;
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.file-explorer {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.explorer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 0.5rem;
+  color: #ccc;
+}
+.explorer-header h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+.explorer-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.explorer-actions button {
+  background: transparent;
+  border: none;
+  min-height: unset;
+  min-width: unset;
+  padding: 0;
+  color: #ccc;
+  box-shadow: none;
+}
+.explorer-actions button:hover {
+  color: #fff;
+  transform: none;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  color: #ccc;
+  user-select: none;
+}
+.file-item:hover {
+  background: #2a2d2e;
+}
+.file-item.active {
+  background: #37373d;
+  color: #fff;
+}
+.file-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.file-actions {
+  display: none;
+  gap: 0.25rem;
+}
+.file-item:hover .file-actions {
+  display: flex;
+}
+.file-actions button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-height: unset;
+  min-width: unset;
+  color: #ccc;
+  box-shadow: none;
+}
+.file-actions button:hover {
+  color: #fff;
+  transform: none;
+}
+.rename-input {
+  background: #000;
+  border: 1px solid var(--color-accent);
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 0.9rem;
+  width: 120px;
+}
+
+.voice-panel, .chat-window, .settings-panel, .lesson-view {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.mic-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+}
+.mic-button.listening {
+  border-color: #ff5555;
+  background: rgba(255, 85, 85, 0.15);
+  box-shadow: 0 0 10px #ff5555, 0 0 20px rgba(255, 85, 85, 0.5);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px #ff5555, 0 0 20px rgba(255, 85, 85, 0.5); }
+  50% { box-shadow: 0 0 15px #ff5555, 0 0 30px rgba(255, 85, 85, 0.8); }
+  100% { box-shadow: 0 0 10px #ff5555, 0 0 20px rgba(255, 85, 85, 0.5); }
+}
+
+.unsupported-warning {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.text-command-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.text-command-form input {
+  padding: 0.5rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.voice-status { margin-top: 1rem; }
+
+.narration-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.run-status { margin-top: 0.75rem; }
+.error-output { color: var(--color-error); }
+
+.chat-messages {
+  list-style: none;
+  padding: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.chat-message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+.chat-message.user { border-left: 3px solid var(--color-accent); }
+.chat-message.assistant { border-left: 3px solid var(--color-border); }
+.chat-window form { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.chat-window input {
+  flex: 1;
+  padding: 0.5rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.setting-row { margin-bottom: 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.checkbox-row { flex-direction: row; align-items: center; gap: 0.5rem; }
+
+.lesson-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.lesson-list button.active { border-color: var(--color-accent); }
+.tutor-page { display: grid; grid-template-columns: 280px 1fr; gap: 1rem; padding: 1rem; }
+.voice-hint { font-style: italic; color: var(--color-accent); }
+.lesson-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
