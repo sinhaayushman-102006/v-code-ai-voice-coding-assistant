@@ -1,172 +1,318 @@
+Absolutely. For GitHub, a **shorter README is more professional and impactful**. Here's a copy-paste-ready version focused on the project's USP, features, architecture, setup, and accessibility.
+
+````markdown
 # V-Code
 
-An AI-powered, voice-first coding assistant built for blind and low-vision learners. You can write, navigate, run, and debug code almost entirely by voice — the AI narrates code in plain spoken language instead of reading symbols literally, explains errors in plain English, and includes a voice-guided tutor for beginners.
+### An AI Voice-First Coding Assistant for Visually Impaired Learners
 
-Every core action has a keyboard- and screen-reader-accessible equivalent. Nothing in this app assumes the user can see the screen.
+V-Code is an AI-powered, voice-first coding and learning platform designed to make programming more accessible to visually impaired learners.
 
-## Features
+It combines an accessible code editor, AI coding assistance, speech-to-text, text-to-speech, voice-controlled navigation, code execution, and an interactive programming tutor into a unified environment.
 
-- **Voice input** — speak commands like "go to line 12" or "create a function called add that takes two numbers" (Web Speech API)
-- **Voice output** — text-to-speech with adjustable rate, pitch, and voice
-- **Structured code narration** — reads `if x > 5:` as *"If x is greater than 5, execute the following block"*, not as symbols
-- **AI coding assistant** — explains code, explains errors, suggests fixes, answers questions (via your own AI API key)
-- **Error-to-speech** — common Python/JS errors are explained instantly offline; anything else goes to the AI
-- **Accessible Monaco editor** — full keyboard control, ARIA labels, works alongside NVDA/JAWS/VoiceOver rather than fighting them
-- **Voice-guided tutor mode** — 5 starter lessons (variables → conditions → loops → functions → lists) with auto-validated exercises
-- **Typed command fallback** — every voice command also works typed, for noisy rooms or no-mic setups
+> **Speak. Code. Understand. Execute. Learn.**
 
-## Architecture
+---
 
+## Why V-Code?
+
+Traditional coding environments rely heavily on visual interfaces. V-Code reduces this dependency by enabling learners to interact with their coding environment through natural voice commands and audio feedback.
+
+A learner can:
+
+- Navigate code using voice
+- Listen to source code and errors
+- Ask AI to explain or generate code
+- Debug programs with AI assistance
+- Execute code safely
+- Learn programming through interactive lessons
+
+---
+
+## Key Features
+
+- **Voice-First Coding** — Control the coding environment using natural speech.
+- **Speech-to-Text** — Convert spoken programming commands into text.
+- **AI Voice Assistant** — Interact with the coding assistant through voice.
+- **Text-to-Speech** — Read code, errors, AI responses, and lessons aloud.
+- **AI Coding Assistant** — Code explanation, generation, debugging, and programming guidance.
+- **Voice Code Navigation** — Navigate lines, functions, and files using voice commands.
+- **Code Execution** — Run programs through a sandboxed execution environment.
+- **AI Error Assistance** — Understand programming errors through simple explanations.
+- **Interactive Programming Tutor** — Learn concepts through lessons, exercises, hints, and feedback.
+- **Read Current Line / Entire File** — Listen to source code without relying entirely on visual reading.
+- **Keyboard Accessibility** — Keyboard shortcuts for essential operations.
+- **Accessible UI** — Designed around accessibility and reduced visual dependency.
+- **Learning Progress** — Track lessons and coding exercises.
+
+---
+
+## Core Workflow
+
+```text
+             USER
+               |
+          Voice / Keyboard
+               |
+               v
+        Speech-to-Text
+               |
+               v
+       Command Processing
+               |
+       +-------+-------+
+       |               |
+       v               v
+   Code Editor      AI Assistant
+       |               |
+       |          Explanation /
+       |          Generation /
+       |          Debugging
+       |               |
+       +-------+-------+
+               |
+               v
+        Code Execution
+               |
+               v
+        Output / Error
+               |
+               v
+        Text-to-Speech
+               |
+               v
+             USER
+````
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* React.js
+* TypeScript
+* Vite
+* Tailwind CSS
+
+### Backend
+
+* Node.js
+* Express.js
+* TypeScript
+* REST APIs
+* dotenv
+
+### AI
+
+* Groq API / Compatible LLM Provider
+* AI-powered code generation
+* Code explanation
+* Debugging assistance
+
+### Voice
+
+* Web Speech API
+* Speech Recognition
+* Speech Synthesis
+* Speech-to-Text
+* Text-to-Speech
+
+### Code Execution
+
+* Judge0
+* Sandboxed program execution
+
+### Development
+
+* Git
+* GitHub
+* Vitest
+* Visual Studio Code
+* npm
+
+---
+
+## Project Structure
+
+```text
+V-Code/
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── backend/
+│   ├── src/
+│   ├── uploads/
+│   ├── .env.example
+│   ├── package.json
+│   └── vitest.config.ts
+│
+└── README.md
 ```
-Browser (mic) ──▶ Web Speech STT ──▶ Rule-based command parser ──▶ Command router
-                                                                        │
-                        ┌───────────────────────────────────────────────┼───────────────┐
-                        ▼                                                ▼               ▼
-                 Monaco editor actions                       Backend /api/ai/*   Backend /api/code/run
-                 (goto/read/insert/undo…)                     (AI provider)      (local JS sandbox or Judge0)
-                        │                                                │               │
-                        └────────────────────────▶ Web Speech TTS ◀──────┴───────────────┘
-```
 
-The command **parser is rule-based and runs entirely in the browser** — navigation, reading, and editing commands work even if the backend or an AI key isn't configured. Only free-form questions, AI explanations/fixes, and code execution touch the backend.
+---
 
-See `docs/technical-design.md` for the full breakdown and `docs/voice-command-spec.md` for every supported command.
+## Getting Started
 
-## Tech Stack
+### Prerequisites
 
-| Layer | Choice |
-|---|---|
-| Frontend | React + TypeScript + Vite + Tailwind + Zustand |
-| Editor | Monaco Editor |
-| Speech | Web Speech API (STT + TTS) |
-| Backend | Node.js + Express + TypeScript |
-| AI | Groq (chat completions, via `groq-sdk`) |
-| Code execution | Local Node `vm` sandbox (JS, zero-config) + Judge0 (Python, needs a key) |
+* Node.js 18+
+* npm
+* Git
 
-## Folder Structure
-
-```
-v-code/
-├── frontend/          React app (Vite)
-├── backend/           Express API
-├── shared/            Types & the voice-command grammar, imported by both
-├── docs/               Technical design + voice command spec
-└── package.json        Root scripts to run both together
-```
-
-## Installation
-
-Requires Node.js 18+.
+### Clone
 
 ```bash
-git clone <this project>
-cd v-code
+git clone <YOUR_REPOSITORY_URL>
+cd V-Code
+```
+
+### Install Backend
+
+```bash
+cd backend
 npm install
-npm --prefix frontend install
-npm --prefix backend install
 ```
 
-## Environment Variables
-
-Copy the example and fill in what you have:
+### Install Frontend
 
 ```bash
-cp backend/.env.example backend/.env
+cd ../frontend
+npm install
 ```
+
+### Configure Environment
+
+Create `backend/.env`:
 
 ```env
 PORT=5000
+NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
 
-GROQ_API_KEY=[GROQ_API_KEY]  # optional — without it, AI features report "not configured" instead of faking answers. Get one free at https://console.groq.com/keys
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_API_KEY=your_api_key_here
 
-JUDGE0_API_URL=       # optional — needed only to run Python. JS runs locally with no key.
+JUDGE0_API_URL=https://ce.judge0.com
 JUDGE0_API_KEY=
 ```
 
-## Running Locally
+Never commit API keys or `.env` files to GitHub.
+
+### Run Backend
 
 ```bash
+cd backend
 npm run dev
 ```
 
-This starts the backend on `http://localhost:5000` and the frontend on `http://localhost:5173` (Vite proxies `/api/*` to the backend automatically). Open the frontend URL in **Chrome or Edge** (Web Speech API support is inconsistent in Firefox/Safari).
+### Run Frontend
 
-Grant microphone permission when prompted, click the mic button (or press `Ctrl+Shift+M`), and try:
-
-> "Create a function called add that takes two numbers"
-
-Then:
-
-> "Run the code"
-
-## Voice Commands
-
-See `docs/voice-command-spec.md` for the full list. Highlights:
-
-| Say | Does |
-|---|---|
-| "go to line 12" | Moves cursor to line 12 |
-| "read the code" | Narrates the whole file in plain language |
-| "read function add" | Narrates just that function |
-| "run the code" | Executes and speaks the result |
-| "explain this error" | Speaks a plain-language explanation of the last error |
-| "fix it" | Asks the AI to correct the last error |
-| "teach me loops" | Jumps to that tutor lesson |
-| "help" | Lists what you can say |
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|---|---|
-| `Ctrl+Shift+M` | Start/stop microphone |
-| `Ctrl+Enter` | Run code |
-| `Escape` | Stop speech |
-
-*(Currently wired: mic toggle via the on-screen button; global key bindings for run/read/explain are stubbed in `Workspace.tsx` as a documented next step — see Known Limitations.)*
-
-## Accessibility
-
-- WCAG 2.2 AA is the target baseline.
-- Skip links, ARIA live regions, strong focus outlines, and a high-contrast theme are built in (`Settings` page).
-- The editor keeps `accessibilitySupport: "on"` so Monaco exposes a screen-reader-friendly textarea rather than only a visual canvas.
-- All voice actions are also reachable via the typed command box, so nothing requires a microphone.
-
-## AI Configuration
-
-AI features (explain, explain-error, fix, free-form chat) run on [Groq](https://groq.com) for low-latency inference, a good fit for a voice interface where the user is waiting on a spoken response. Requires `GROQ_API_KEY` in `backend/.env` (free tier available at console.groq.com/keys). Without it, the backend returns an honest, clearly-worded "not configured" response — it never fabricates an answer. `GROQ_MODEL` defaults to `llama-3.3-70b-versatile`; see console.groq.com/docs/models for alternatives.
-
-## Code Execution
-
-- **JavaScript** runs locally out of the box, sandboxed via Node's `vm` module (3-second timeout, isolated context). No setup required.
-- **Python** requires [Judge0](https://judge0.com) — set `JUDGE0_API_URL` and `JUDGE0_API_KEY`. Without them, running Python returns a clear error explaining what's missing, rather than a fake result.
-
-## Testing
+Open a second terminal:
 
 ```bash
-npm test          # backend tests (vitest)
-npm run typecheck # strict TS check across both apps
+cd frontend
+npm run dev
 ```
 
-Test coverage in this MVP focuses on the command parser, error explainer, and code narrator (the offline, deterministic logic). See `docs/technical-design.md` → Testing for what's covered vs. what's a documented gap.
+Open:
 
-## Known Limitations
+```text
+http://localhost:5173
+```
 
-- **STT/TTS are browser-native (Web Speech API)**, not Whisper/Polly/ElevenLabs — quality and browser support vary. Chrome/Edge recommended. The service layer (`voiceService`-equivalent hooks) is isolated so swapping in Whisper or a paid TTS voice is a contained change.
-- **Python execution needs an external Judge0 key** — it's not bundled, since it requires a hosted account.
-- **No automated E2E voice tests** — voice interaction is inherently hard to script; manual testing with a real mic and a real screen reader (NVDA/VoiceOver) is recommended before considering this production-ready.
-- **Global keyboard shortcuts beyond the mic toggle aren't wired yet** (Ctrl+Enter to run, Ctrl+Shift+E to explain, etc.) — the settings store already has a `shortcuts` extension point for this.
-- **Single-file workspace only** — no multi-file projects, file tree, or persistence beyond localStorage settings and a "save to downloads" action.
-- **No user accounts / lesson progress sync** — tutor progress lives in memory only (client-side Zustand state), resets on reload.
+---
 
-## Roadmap
+## Example Voice Commands
 
-1. Wire remaining global keyboard shortcuts (Ctrl+Enter, Ctrl+Shift+R/F/E)
-2. Swap Web Speech STT for Whisper API for reliability across browsers
-3. Add a real screen-reader test pass (NVDA + Chrome, VoiceOver + Safari)
-4. Multi-file workspace + persistence (backend-stored projects)
-5. VS Code extension using the same `shared/` command grammar
-6. Offline mode (bundle a small on-device model for narration/error explanation when no AI key is available)
-#   v - c o d e - a i - v o i c e - c o d i n g - a s s i s t a n t  
- 
+```text
+"Read the current line."
+
+"Explain this code."
+
+"Go to line 20."
+
+"Find the error."
+
+"Run my program."
+
+"Read the entire file."
+
+"Generate a Python program to calculate factorial."
+
+"Give me a hint."
+
+"Start the next lesson."
+```
+
+---
+
+## Accessibility Focus
+
+V-Code is designed to reduce the visual barriers associated with traditional programming environments.
+
+The platform focuses on:
+
+* Voice-first interaction
+* Audio-based code reading
+* Keyboard navigation
+* Screen-reader-friendly design
+* Spoken error feedback
+* AI-assisted learning
+* Reduced dependence on mouse-based interaction
+
+The accessibility approach is guided by **WCAG 2.2** principles.
+
+---
+
+## Impact
+
+V-Code aims to enable visually impaired learners to independently:
+
+**Navigate → Code → Understand → Debug → Execute → Learn**
+
+By combining AI, voice technology, and programming education, V-Code transforms the traditional coding workflow into a more accessible and interactive learning experience.
+
+---
+
+## Future Scope
+
+* Multilingual voice interaction
+* Hindi and regional-language support
+* Offline/local AI models
+* Advanced screen-reader integration
+* Personalized learning paths
+* AI-powered code review
+* Voice-based project management
+* Learning analytics
+* Collaborative coding
+
+---
+
+## References
+
+1. W3C — Web Content Accessibility Guidelines (WCAG) 2.2
+2. WHO — Assistive Technology
+3. MDN Web Docs — Web Speech API
+4. Judge0 — Online Code Execution System and API
+5. Groq — API Documentation
+
+---
+
+## License
+
+Developed for educational and research purposes.
+
+```
+
+### Recommended GitHub tagline
+
+Use this as the **GitHub repository description**:
+
+> **An AI-powered, voice-first coding and learning platform designed to make programming accessible for visually impaired learners.**
+
+And for the project's **one-line USP**:
+
+> **V-Code transforms programming from a visual-first experience into an accessible voice-and-audio coding experience.**
+```
